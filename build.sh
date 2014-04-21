@@ -1,11 +1,11 @@
 #!/bin/bash
-PACKAGENAME="lxccurepo"
+PACKAGENAME="lxcu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
-VENDOR="$MAINTAINER"
+VENDOR="LXCU Team <team@lxcu.org>"
 VERSION="1.0-1"
 URL="https://www.biglan.at/oskar/lxccu/"
 LICENSE="GPLv3"
-DESCRIPTION="Install lxccu repository"
+DESCRIPTION="Install lxcu repository"
 
 EXCLUDE="*DS_Store*"
 
