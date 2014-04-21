@@ -14,10 +14,11 @@ fpm -f -s dir -t deb -a all \
 	-n "$PACKAGENAME" \
 	-m "$MAINTAINER" \
 	--vendor "$VENDOR" \
+	--category "misc" \
 	--license "$LICENSE" \
 	--url $URL \
 	--description "$DESCRIPTION" \
 	--after-install "install_apt_key.sh" \
 	-v "$VERSION" \
-	./src
+	./src/
 
