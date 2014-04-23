@@ -2,8 +2,8 @@
 PACKAGENAME="lxcu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
 VENDOR="LXCU Team <team@lxcu.org>"
-VERSION="1.0-1"
-URL="https://www.biglan.at/oskar/lxccu/"
+VERSION="1.1-1"
+URL="https://www.biglan.at/oskar/lxcu/"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxcu repository"
 
@@ -23,6 +23,6 @@ fpm -f -s dir -t deb -a all \
 	-v "$VERSION" \
 	-p "${ROOT}/lxcu-repo_${VERSION}_all.deb" \
 	--config-files "/etc/apt/" \
-	--deb-changelog "${ROOT}/changelog" \
+	--deb-changelog "${ROOT}/debian/changelog" \
 	--deb-compression "xz" \
 	.

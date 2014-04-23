@@ -1,4 +1,4 @@
-lxccurepro (1.0-1) stable; urgency=low
+lxccurepro (1.1-1) stable; urgency=low
 
   * Initial release (Closes: #1)
   * Fix lintian errors (Closes: #2) 
