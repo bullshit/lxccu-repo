@@ -1,0 +1,6 @@
+lxccurepro (1.0-1) stable; urgency=low
+
+  * Initial release (Closes: #1)
+  * Fix lintian errors (Closes: #2) 
+
+ -- Oskar Holowaty <me@oskarholowaty.com>  Sun, 23 Apr 2014 12:13:16 +0200

@@ -7,10 +7,10 @@ URL="https://www.biglan.at/oskar/lxccu/"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxcu repository"
 
-EXCLUDE="*DS_Store*"
+ROOT=`pwd`
 
+cd ./src
 fpm -f -s dir -t deb -a all \
-	-x "$EXCLUDE" \
 	-n "$PACKAGENAME" \
 	-m "$MAINTAINER" \
 	--vendor "$VENDOR" \
@@ -18,7 +18,11 @@ fpm -f -s dir -t deb -a all \
 	--license "$LICENSE" \
 	--url $URL \
 	--description "$DESCRIPTION" \
-	--after-install "install_apt_key.sh" \
+	--after-install "${ROOT}/debian/install_apt_key.sh" \
+	--post-uninstall "${ROOT}/debian/uninstall_apt_key.sh" \
 	-v "$VERSION" \
-	./src/
-
+	-p "${ROOT}/lxcu-repo_${VERSION}_all.deb" \
+	--config-files "/etc/apt/" \
+	--deb-changelog "${ROOT}/changelog" \
+	--deb-compression "xz" \
+	.
