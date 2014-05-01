@@ -1,11 +1,11 @@
 #!/bin/bash
-PACKAGENAME="lxcu-repo"
+PACKAGENAME="lxccu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
-VENDOR="LXCU Team <team@lxcu.org>"
+VENDOR="LXCU Team <team@lxccu.org>"
 VERSION="1.1-1"
-URL="https://www.biglan.at/oskar/lxcu/"
+URL="https://www.biglan.at/oskar/lxccu/"
 LICENSE="GPLv3"
-DESCRIPTION="Install lxcu repository"
+DESCRIPTION="Install lxccu repository"
 
 ROOT=`pwd`
 
