@@ -26,11 +26,11 @@ case "$1" in
 	upgrade)
 	;;
 	remove|failed-upgrade|abort-install|abort-upgrade|disappear)
-		apt-key del $REPO_KEY_ID_SHORT || exit 78
+		apt-key del $REPO_KEY_ID_SHORT
 	;;
 
 	purge)
-		apt-key del $REPO_KEY_ID_SHORT || exit 78
+		
 	;;
 
 	*)
