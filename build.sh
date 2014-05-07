@@ -2,8 +2,8 @@
 PACKAGENAME="lxccu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
 VENDOR="LXCU Team <team@lxccu.org>"
-VERSION="1.2-2"
-URL="https://www.biglan.at/oskar/lxccu/"
+VERSION="1.2-4"
+URL="http://62.99.159.215/lxccu/"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxccu repository"
 
