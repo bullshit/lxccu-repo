@@ -52,7 +52,7 @@ apt-get update
 
 trap '' 2 #disable ctrl+c
 dialog --title "Achtung!" \
---backtitle "Linux Shell Script Tutorial Example" \
+--backtitle "LXCCU Installer" \
 --yesno "Derzeit gibt es noch einen Bug mit fixen IPs!!\nSolltest du eine fixe IP eingestellt haben,\nmusst du derzeit die Bridge selbst konfigurieren!\n\nhttp://homematic-forum.de/forum/viewtopic.php?f=26&t=18359&p=151485#p151482\n\nBenutzt du statische/fixe ip? (y/n)" 14 60
 response=$?
 trap 2 #enable ctrl+c
