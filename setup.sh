@@ -1,6 +1,5 @@
 #!/usr/bin/env
 LSB_RELEASE="/usr/bin/lsb_release"
-REPO_VERSION="1.2-6"
 
 # Check if we can use colours in our output
 use_colour=0
@@ -26,10 +25,19 @@ die () {
 	exit 1
 }
 
+install_package() {
+	package=$1
+	info "install ${package}"
+	apt-get -qq -y install $package 2>&1 > /dev/null
+	return $?
+}
+
 [ "x$(id -un)" == "xroot" ] || die "Sorry, this script must be run as root."
-[ -x $LSB_RELEASE ] || die "Sorry, can't find $LSB_RELEASE. Install lsb-release"
-[ -x "$(which wget)" ] || die "Sorry, cannot find wget to download files with. Try: aptitude install wget"
-[ -x "$(which dialog)" ] || apt-get install dialog
+
+[ -x $LSB_RELEASE ] || install_package "lsb-release"
+[ -x "$(which wget)" ] || install_package "wget"
+[ -x "$(which dialog)" ] || install_package "dialog" 
+
 # check architecture
 test "`dpkg --print-architecture`" == "armhf" || die "This Repos is only for armhf."
 
@@ -44,12 +52,14 @@ Debian:wheezy)	DIST="debian";;
 *)		die "Sorry, this script does not support your distribution/release ($DIST_ID $CODENAME)." ;;
 esac
 
-TMP=mktemp
-DEBPKG="$(wget -nv -O $TMP http://www.lxccu.com/apt-repository/pool/main/l/lxccu-repo/lxccu-repo_${REPO_VERSION}_all.deb)" || die "Download failed."
+progress "download latest repository package"
+TMP=`mktemp`
+DEBPKG="$(wget -nv -O $TMP http://www.lxccu.com/latest-repo.php)" || die "Download failed."
+progress "install latest repository package"
 dpkg -i $TMP || die "repo installation failed!"
 
 progress "updated sources"
-apt-get update
+apt-get -q=2 update
 
 trap '' 2 #disable ctrl+c
 dialog --title "Achtung!" \
@@ -60,8 +70,8 @@ trap 2 #enable ctrl+c
 
 case $response in
    0) die "bitte passe deine netzwerkkonfiguration händisch an!" ;;
-   1) info "okey lets do it!" ;;
-   255) info "okey lets do it!" ;;
+   1) clear; info "okey lets do it!" ;;
+   255) die "bitte passe deine netzwerkkonfiguration händisch an!" ;;
 esac
 
 export DEBIAN_FRONTEND=noninteractive
