@@ -1,11 +1,13 @@
 #!/bin/bash
 PACKAGENAME="lxccu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
-VENDOR="LXCU Team <team@lxccu.org>"
-VERSION="1.2-5"
-URL="http://62.99.159.205/lxccu/"
+VENDOR="LXCU Team <team@lxccu.com>"
+VERSION="1.2-6"
+URL="http://www.lxccu.com"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxccu repository"
+
+#TODO sed version number in changelog and setup.sh
 
 ROOT=`pwd`
 

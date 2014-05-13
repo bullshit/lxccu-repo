@@ -26,7 +26,7 @@ case "$1" in
 	REPO_KEY_ID_LONG="5371D7FED7C6BA0C"
 	REPO_KEY_ID_SHORT="D7C6BA0C"
 	KEYSERVER=keys.gnupg.net
-	URL_TO_GPG_KEY="http://62.99.159.205/lxccu/me@oskarholowaty.com.gpg.key"
+	URL_TO_GPG_KEY="http://www.lxccu.com/me@oskarholowaty.com.gpg.key"
 
 	apt-key adv --keyserver "$KEYSERVER" --recv-keys "$REPO_KEY_ID_LONG"; RET=$?
 
