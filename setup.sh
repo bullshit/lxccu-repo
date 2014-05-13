@@ -1,5 +1,7 @@
 #!/usr/bin/env
 LSB_RELEASE="/usr/bin/lsb_release"
+IP="62.99.159.205"
+REPO_VERSION="1.2-5"
 
 # Check if we can use colours in our output
 use_colour=0
@@ -44,7 +46,7 @@ Debian:wheezy)	DIST="debian";;
 esac
 
 TMP=mktemp
-DEBPKG="$(wget -nv -O $TMP http://62.99.159.215/lxccu/apt-repository/pool/main/l/lxccu-repo/lxccu-repo_1.2-4_all.deb)" || die "Download failed."
+DEBPKG="$(wget -nv -O $TMP http://${IP}/lxccu/apt-repository/pool/main/l/lxccu-repo/lxccu-repo_${REPO_VERSION}_all.deb)" || die "Download failed."
 dpkg -i $TMP || die "repo installation failed!"
 
 progress "updated sources"
