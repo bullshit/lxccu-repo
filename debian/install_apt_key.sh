@@ -35,7 +35,19 @@ case "$1" in
 		KEYDATA="$(wget -nv -O- $URL_TO_GPG_KEY)" || die "Key download failed."
 		echo "$KEYDATA" | apt-key add - || die "Adding the key failed."
 	fi
-    db_go lxcu-repo $@ || true
+
+	
+	REPO_KEY_ID_LONG="58F167B86220726A"
+	REPO_KEY_ID_SHORT="6220726A"
+	URL_TO_GPG_KEY="http://www.lxccu.com/team@lxccucom.asc"
+	apt-key adv --keyserver "$KEYSERVER" --recv-keys "$REPO_KEY_ID_LONG"; RET=$?
+
+	if [ $RET -ne 0 ]; then
+		# Try again, using wget this time
+		KEYDATA="$(wget -nv -O- $URL_TO_GPG_KEY)" || die "Key download failed."
+		echo "$KEYDATA" | apt-key add - || die "Adding the key failed."
+	fi	
+    db_go lxccu-repo $@ || true
   ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

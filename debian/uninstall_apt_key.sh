@@ -20,13 +20,12 @@ set -e
 . /usr/share/debconf/confmodule
 
 
-REPO_KEY_ID_SHORT="D7C6BA0C"
-
 case "$1" in
 	upgrade)
 	;;
 	remove|failed-upgrade|abort-install|abort-upgrade|disappear)
-		apt-key del $REPO_KEY_ID_SHORT
+		apt-key del "D7C6BA0C"
+		apt-key del "6220726A"
 	;;
 
 	purge)
