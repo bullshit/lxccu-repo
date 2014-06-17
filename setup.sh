@@ -48,6 +48,7 @@ DIST=""
 # Check the distribution is in the supported list
 case "$DIST_ID:$CODENAME" in
 Debian:wheezy)	DIST="debian";;
+Ubuntu:trusty)	DIST="ubuntu";;
 #Debian:jessie)	DIST="debian";;
 *)		die "Sorry, this script does not support your distribution/release ($DIST_ID $CODENAME)." ;;
 esac
