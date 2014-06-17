@@ -62,18 +62,19 @@ dpkg -i $TMP || die "repo installation failed!"
 progress "updated sources"
 apt-get -q=2 update
 
-trap '' 2 #disable ctrl+c
-dialog --title "Achtung!" \
---backtitle "LXCCU Installer" \
---yesno "Derzeit gibt es noch einen Bug mit fixen IPs!!\nSolltest du eine fixe IP eingestellt haben,\nmusst du derzeit die Bridge selbst konfigurieren!\n\nhttp://homematic-forum.de/forum/viewtopic.php?f=26&t=18359&p=151485#p151482\n\nBenutzt du statische/fixe ip? (y/n)" 14 60
-response=$?
-trap 2 #enable ctrl+c
 
-case $response in
-   0) die "bitte passe deine netzwerkkonfiguration händisch an!" ;;
-   1) clear; info "okey lets do it!" ;;
-   255) die "bitte passe deine netzwerkkonfiguration händisch an!" ;;
-esac
+bridgecount="$(brctl show | wc -l)"
+staticip="$(/etc/network/interfaces| grep '^ *address ' | wc -l)"
+if [[ $bridgecount -lt 1 && $staticip -gt 0 ]]; then
+	info "Du benutzt statische IPs!"
+	info "Bitte konfiguriere eine bridge"
+	info "Anleitung findest du unter:"
+	info ""
+	info "http://homematic-forum.de/forum/viewtopic.php?f=26&t=18359&p=151485#p151482"
+	info "oder google nach 'debian static bridge'"
+	exit 1
+fi
+
 
 export DEBIAN_FRONTEND=noninteractive
 progress "install lxccu"
