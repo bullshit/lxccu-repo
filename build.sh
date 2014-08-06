@@ -2,7 +2,7 @@
 PACKAGENAME="lxccu-repo"
 MAINTAINER="Oskar Holowaty <me@oskarholowaty.com>"
 VENDOR="LXCU Team <team@lxccu.com>"
-VERSION="1.3"
+VERSION="1.4"
 URL="http://www.lxccu.com"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxccu repository"
