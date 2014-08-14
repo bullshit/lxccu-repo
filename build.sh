@@ -7,7 +7,8 @@ URL="http://www.lxccu.com"
 LICENSE="GPLv3"
 DESCRIPTION="Install lxccu repository"
 
-#TODO sed version number in changelog and setup.sh
+firstline="${PACKAGENAME} (${VERSION}) stable; urgency=low"
+sed -i "1s/.*/$firstline/" ./debian/changelog
 
 ROOT=`pwd`
 
