@@ -61,7 +61,7 @@ progress "download latest repository package"
 TMP=`mktemp`
 DEBPKG="$(wget -q -nv -O $TMP http://www.lxccu.com/latest-repo.php)" || die "Download failed."
 progress "install latest repository package"
-dpkg -i $TMP &1> /dev/null || die "repo installation failed!"
+dpkg -i $TMP || die "repo installation failed!"
 
 if [ "$LXCCUTESTING" == "on" ]; then
 	echo "deb http://cdn.lxccu.com/apt/ testing main optional" > /etc/apt/sources.list.d/lxccu_test.list
@@ -70,7 +70,7 @@ fi
 if [ "$LXCCUTESTING" == "on" ]; then
 	echo "no bridge setup - lxccu v1.8 will do the rest"
 else
-	bridgecount="$(brctl show | wc -l)"
+	bridgecount="$(brctl show | grep -v 'bridge name' | wc -l)"
 	staticip="$(cat /etc/network/interfaces| grep '^ *address ' | wc -l)"
 	if [[ $bridgecount -lt 1 && $staticip -gt 0 ]]; then
 		info "Du benutzt statische IPs!"
