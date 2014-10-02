@@ -35,8 +35,6 @@ install_package() {
 [ "x$(id -un)" == "xroot" ] || die "Sorry, this script must be run as root."
 
 [ -x $LSB_RELEASE ] || install_package "lsb-release"
-[ -x "$(which wget)" ] || install_package "wget"
-[ -x "$(which dialog)" ] || install_package "dialog" 
 
 # check architecture
 test "`dpkg --print-architecture`" == "armhf" || die "This Repos is only for armhf."
@@ -53,20 +51,26 @@ Ubuntu:trusty)	DIST="ubuntu";;
 *)		die "Sorry, this script does not support your distribution/release ($DIST_ID $CODENAME)." ;;
 esac
 
+[ -x "$(which wget)" ] || install_package "wget"
+# @TODO remove if fixed static ip shit
+[ -x "$(which dialog)" ] || install_package "dialog" 
+[ -x "$(which brctl)" ] || install_package "bridge-utils" 
+
+
 progress "download latest repository package"
 TMP=`mktemp`
-DEBPKG="$(wget -nv -O $TMP http://www.lxccu.com/latest-repo.php)" || die "Download failed."
+DEBPKG="$(wget -q -nv -O $TMP http://www.lxccu.com/latest-repo.php)" || die "Download failed."
 progress "install latest repository package"
 dpkg -i $TMP || die "repo installation failed!"
 
-if [ "$LXCCUDEBUG" == "on" ]; then
+if [ "$LXCCUTESTING" == "on" ]; then
 	echo "deb http://cdn.lxccu.com/apt/ testing main optional" > /etc/apt/sources.list.d/lxccu_test.list
 fi
 
 progress "updated sources"
 apt-get -q=2 update
 
-if [ "$LXCCUDEBUG" == "on" ]; then
+if [ "$LXCCUTESTING" == "on" ]; then
 	echo "no bridge setup - lxccu v1.8 will do the rest"
 else
 	bridgecount="$(brctl show | wc -l)"
