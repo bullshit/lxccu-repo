@@ -61,20 +61,17 @@ progress "download latest repository package"
 TMP=`mktemp`
 DEBPKG="$(wget -q -nv -O $TMP http://www.lxccu.com/latest-repo.php)" || die "Download failed."
 progress "install latest repository package"
-dpkg -i $TMP || die "repo installation failed!"
+dpkg -i $TMP &1> /dev/null || die "repo installation failed!"
 
 if [ "$LXCCUTESTING" == "on" ]; then
 	echo "deb http://cdn.lxccu.com/apt/ testing main optional" > /etc/apt/sources.list.d/lxccu_test.list
 fi
 
-progress "updated sources"
-apt-get -q=2 update
-
 if [ "$LXCCUTESTING" == "on" ]; then
 	echo "no bridge setup - lxccu v1.8 will do the rest"
 else
 	bridgecount="$(brctl show | wc -l)"
-	staticip="$(/etc/network/interfaces| grep '^ *address ' | wc -l)"
+	staticip="$(cat /etc/network/interfaces| grep '^ *address ' | wc -l)"
 	if [[ $bridgecount -lt 1 && $staticip -gt 0 ]]; then
 		info "Du benutzt statische IPs!"
 		info "Bitte konfiguriere eine bridge"
@@ -82,9 +79,12 @@ else
 		info ""
 		info "http://homematic-forum.de/forum/viewtopic.php?f=26&t=18359&p=151485#p151482"
 		info "oder google nach 'debian static bridge'"
-		exit 1
+		die "setup aborted"
 	fi
 fi
+
+progress "updated sources"
+apt-get -q=2 update
 
 # @TODO setup debconf for lxccu path but remove noninteractive setup!!!
 export DEBIAN_FRONTEND=noninteractive
