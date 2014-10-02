@@ -66,7 +66,7 @@ if [ "$LXCCUTESTING" == "on" ]; then
 fi
 
 if [ "$LXCCUTESTING" == "on" ]; then
-	echo "no bridge setup - lxccu v1.8 will do the rest"
+	info "no bridge setup - lxccu v1.8 will do the rest"
 else
 	bridgecount="$(brctl show | grep -v 'bridge name' | wc -l)"
 	staticip="$(cat /etc/network/interfaces| grep '^ *address ' | wc -l)"
