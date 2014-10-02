@@ -52,8 +52,6 @@ Ubuntu:trusty)	DIST="ubuntu";;
 esac
 
 [ -x "$(which wget)" ] || install_package "wget"
-# @TODO remove if fixed static ip shit
-[ -x "$(which dialog)" ] || install_package "dialog" 
 [ -x "$(which brctl)" ] || install_package "bridge-utils" 
 
 
